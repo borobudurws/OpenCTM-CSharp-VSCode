@@ -20,18 +20,24 @@ namespace OpenCTM
 	            writeFloatArray(m.normals, output, vc, 3);
 	        }
 	
-	        foreach (AttributeData ad in m.texcoordinates) {
-	            output.writeLittleInt(MeshDecoder.TEXC);
-	            output.writeString(ad.name);
-	            output.writeString(ad.materialName);
-	            writeFloatArray(ad.values, output, vc, 2);
-	        }
+	        if (m.texcoordinates != null)
+			{
+				foreach (AttributeData ad in m.texcoordinates) {
+					output.writeLittleInt(MeshDecoder.TEXC);
+					output.writeString(ad.name);
+					output.writeString(ad.materialName);
+					writeFloatArray(ad.values, output, vc, 2);
+				}
+			}
 	
-	        foreach (AttributeData ad in m.attributs) {
-	            output.writeLittleInt(MeshDecoder.ATTR);
-	            output.writeString(ad.name);
-	            writeFloatArray(ad.values, output, vc, 4);
-	        }
+	        if (m.attributs != null)
+			{
+				foreach (AttributeData ad in m.attributs) {
+					output.writeLittleInt(MeshDecoder.ATTR);
+					output.writeString(ad.name);
+					writeFloatArray(ad.values, output, vc, 4);
+				}
+			}
 	    }
 	
 	    protected virtual void writeIndicies(int[] indices, CtmOutputStream output)
